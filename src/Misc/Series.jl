@@ -44,7 +44,7 @@ function log(a::RelSeriesElem{T}) where T <: FieldElement
     return integral(derivative(a)*inv(a))
 end
 
-function exp(a::RelSeriesElem{T}) where T <: FieldElement
+function Base.exp(a::RelSeriesElem{T}) where T <: FieldElement
     @assert valuation(a) > 0
     R = base_ring(parent(a))
     x = parent(a)([R(1)], 1, 2, 0)
