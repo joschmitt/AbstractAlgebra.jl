@@ -1,35 +1,21 @@
 const JuliaQQ = Rationals{BigInt}()
-
 parent(a::Rational{T}) where T <: Integer = Rationals{T}()
-
 elem_type(::Type{Rationals{T}}) where T <: Integer = Rational{T}
-
 parent_type(::Type{Rational{T}}) where T <: Integer = Rationals{T}
-
 base_ring(a::Rational{BigInt}) = JuliaZZ
-
 base_ring(a::Rationals{BigInt}) = JuliaZZ
-
 base_ring(a::Rationals{T}) where T <: Integer = Integers{T}()
-
 base_ring(a::Rational{T}) where T <: Integer = Integers{T}()
-
 zero(::Rationals{T}) where T <: Integer = Rational{T}(0)
-
 one(::Rationals{T}) where T <: Integer = Rational{T}(1)
-
 canonical_unit(a::Rational)  = a
-
 function numerator(a::Rational, canonicalise::Bool=true)
    return Base.numerator(a) # all other types ignore canonicalise
 end
-
 function denominator(a::Rational, canonicalise::Bool=true)
    return Base.denominator(a) # all other types ignore canonicalise
 end
-
 divexact(a::Rational, b::Rational; check::Bool=true) = a//b
-
 function zero!(a::Rational{T}) where T <: Integer
    n = a.num
    n = zero!(n)
@@ -39,7 +25,6 @@ function zero!(a::Rational{T}) where T <: Integer
       return Rational{T}(n, T(1))
    end
 end
-
 function mul!(a::Rational{T}, b::Rational{T}, c::Rational{T}) where T <: Integer
    n = a.num
    d = a.den
@@ -56,7 +41,6 @@ function mul!(a::Rational{T}, b::Rational{T}, c::Rational{T}) where T <: Integer
       return Rational{T}(n, d)
    end
 end
-
 function add!(a::Rational{T}, b::Rational{T}, c::Rational{T}) where T <: Integer
    if a === b
       return addeq!(a, c)
@@ -80,7 +64,6 @@ function add!(a::Rational{T}, b::Rational{T}, c::Rational{T}) where T <: Integer
       end
    end
 end
-
 function addeq!(a::Rational{T}, b::Rational{T}) where T <: Integer
    if a === b
       if iseven(a.den)
@@ -106,13 +89,10 @@ function addeq!(a::Rational{T}, b::Rational{T}) where T <: Integer
       end
    end
 end
-
 function (R::Rationals{T})() where T <: Integer
    return Rational{T}(0)
 end
-
 function (R::Rationals{T})(b) where T <: Integer
    return Rational{T}(b)
 end
-
 FractionField(R::Integers{T}) where T <: Integer = Rationals{T}()

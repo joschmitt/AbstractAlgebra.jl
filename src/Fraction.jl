@@ -1,17 +1,12 @@
 export FractionField
-
 base_ring(a::FracField{T}) where T <: RingElem = a.base_ring::parent_type(T)
-
 base_ring(a::FracElem) = base_ring(parent(a))
-
 parent(a::FracElem) = a.parent
-
 function check_parent(a::FracElem, b::FracElem, throw::Bool = true)
    fl = parent(a) != parent(b)
    fl && throw && error("Incompatible rings in fraction field operation")
    return !fl
 end
-
 function //(x::T, y::T) where {T <: RingElem}
    R = parent(x)
    iszero(y) && throw(DivideError())
@@ -24,7 +19,6 @@ function //(x::T, y::T) where {T <: RingElem}
    end
    return z
 end
-
 function *(a::FracElem{T}, b::FracElem{T}) where {T <: RingElem}
    check_parent(a, b)
    n1 = numerator(a, false)
@@ -68,7 +62,6 @@ function *(a::FracElem{T}, b::FracElem{T}) where {T <: RingElem}
    end
    return parent(a)(n, d)
 end
-
 function FractionField(R::Ring; cached=true)
    return Generic.FractionField(R; cached=cached)
 end
